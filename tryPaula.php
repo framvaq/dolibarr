@@ -22,23 +22,27 @@ $consulta_clientes = "SELECT rowid, nom FROM llx_societe";
 $resultado_clientes = $conexion->query($consulta_clientes);
 
 // Mostrar la lista de clientes en un formulario
-echo "<form method='post' action='procesar_pedido.php'>";
-echo "<label for='cliente'>Selecciona un cliente:</label>";
-echo "<select name='cliente'>";
-while ($row = $resultado_clientes->fetch_assoc()) {
-    echo "<option value='".$row['rowid']."'>".$row['nom']."</option>";
-}
-echo "</select>";
+echo "<form method='post' action='takeOrder.php'>";
 
-// Consulta para obtener la lista de productos desde la base de datos de Dolibarr
-$consulta_productos = "SELECT ref, label FROM llx_product";
-$resultado_productos = $conexion->query($consulta_productos);
+    echo "<label for='cliente'>Selecciona un cliente:</label>";
+    echo "<select name='cliente' id='cliente'>";
+    while ($row = $resultado_clientes->fetch_assoc()) {
+        echo "<option value='".$row['rowid']."'>".$row['nom']."</option>";
+    }
+    echo "</select>";
 
-// Mostrar la lista de productos en un formulario
-echo "<br><br><label>Selecciona productos:</label><br>";
-while ($row = $resultado_productos->fetch_assoc()) {
-    echo "<input type='checkbox' name='productos[]' value='".$row['ref']."'>".$row['label']."<br>";
-}
+    // Consulta para obtener la lista de productos desde la base de datos de Dolibarr
+    $consulta_productos = "SELECT ref, label FROM llx_product";
+    $resultado_productos = $conexion->query($consulta_productos);
+
+    // Mostrar la lista de productos en un formulario
+    echo "<br><br><label>Selecciona productos:</label><br>";
+    while ($row = $resultado_productos->fetch_assoc()) {
+        echo "<input type='checkbox' name='productos[]' id='productos' value='".$row['ref']."'>".$row['label']."<br>";
+    }
+    echo "<input type='submit' value='SEND'>";
+
+echo "</form>";
 
 // Procesar el formulario cuando se presiona el botón de "Pagar"
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -61,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'qty' => 1 // Cantidad
         );
     }
+    
 
     // Crear el pedido utilizando la API de Dolibarr
     $ch = curl_init($dolibarr_api_url);
@@ -71,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'Content-Type: application/json',
         'DOLAPIKEY: ' . $dolibarr_api_key
     ));
+    
 
     $resultado = curl_exec($ch);
     curl_close($ch);
@@ -89,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     echo "Pedido creado con éxito.";
-}
 
+
+}
 ?>
