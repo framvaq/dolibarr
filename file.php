@@ -7,10 +7,15 @@
     <title>MPC</title>
   </head>
   <body>
-    <form action=""><select name="" id=""></select></form>
+    <!-- <form action=""><select name="" id=""></select></form> -->
     <?php
         echo "works";
-        $conn = new mysql("dolibarr","dolibarrmysql","changeme","llx_product") or die("Error: Conection");
+        $conn_Customers = new mysql("dolibarr","dolibarrmysql","changeme","") or die("Error: Conection Customers");
+
+        echo "works conection customer";
+
+        $conn_Customers ->close();
+        $conn = new mysql("dolibarr","dolibarrmysql","changeme","llx_product") or die("Error: Conection Product");
 
         $data = $conn->query("SELECT rowid,label,price from llx_product");
 
