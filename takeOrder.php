@@ -45,13 +45,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql_insert_order =  "INSERT INTO llx_commande (fk_soc,ref)
     values($cliente_seleccionado,'xxx')";
     if ($conn->query($sql_insert_order) === TRUE) {
-        echo "New record created successfully";
+        echo "New record created successfully<br>";
       } else {
         echo "Error: " . $sql_insert_order . "<br>" . $conn->error;
       }
 
     //INSERT LIST PRODUCT
+      $sql_id_order="SELECT rowid FROM llx_commande order by rowid DESC limit 1";
+      $result_sql_id_order = $conn->query($sql_id_order);
+      while($row=$result_sql_id_order->fetch_assoc())
+      {
+        $id_customer = $row["rowid"];
+        echo $id_customer, "  ";
 
+        foreach($productos_seleccionados as $tmp) {
+            echo $tmp . "<br>";
+
+            $sql_insert_product = "INSERT INTO llx_commandedet (fk_commande,fk_product)
+            values($id_customer,$tmp)";
+            $conn->query($sql_insert_product);
+        }
+      }
+
+
+      
 
       $conn->close();
 ?>
