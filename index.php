@@ -12,23 +12,27 @@ $resCLi = $db->query($queryCli);
 $resProd = $db->query($queryProd);
 
 ?>
-<form action="">
-    <select id="clients">
+<form action="./createOrder.php" method="POST">
+    <select name="client">
         <?php
         while ($row = $resCLi->fetch_assoc()) {
-            echo ('<option id=' . $row["rowid"] . ">" . $row['nom'] . "</option>");
+            echo ('<option value=' . $row["rowid"] . ">" . $row['nom'] . "</option>");
         }
         ?>
     </select>
+    <br>
     Lista de productos:
+    <br>
     <?php
     while ($row = $resProd->fetch_assoc()) {
-        echo ('<li><input type="checkbox" id=' . $row["rowid"] . ">" . $row['label'] . "</input></li>");
+        // $count = isset($count) ? $count++ : 0;
+        echo ('<label><input type="checkbox" name="products[]" value=' . $row["rowid"] . ">" . $row['label'] . "</input><br><label>");
     }
+
     ?>
-    <ul>
 
     </ul>
+    <input type="submit" value="Send">
 </form>
-
-</body>
+<?php
+include_once 'footer.php';
