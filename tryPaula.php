@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPC</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<img src="MPClogo.png" alt="Logo de la empresa">
+  
 <?php
 // Datos de conexión a la base de datos de Dolibarr
 $host = 'localhost';
@@ -66,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         );
     }
 
-
     // Crear el pedido utilizando la API de Dolibarr
     $ch = curl_init($dolibarr_api_url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -76,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'Content-Type: application/json',
         'DOLAPIKEY: ' . $dolibarr_api_key
     ));
-
 
     $resultado = curl_exec($ch);
     curl_close($ch);
@@ -94,5 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    echo "Pedido creado con éxito.";
 }
+
+?>
+
+</body>
+</html>

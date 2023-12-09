@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPC</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
 <?php
 
@@ -29,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );
   }
 }
+
 //Cliente
 echo "Cliente: ",  $cliente_seleccionado, "<br>";
 //PRODUCT 
@@ -72,20 +82,8 @@ while ($row = $result_sql_id_order->fetch_assoc()) {
   }
 }
 
-
-
-
 $conn->close();
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Página</title>
-</head>
-<body>
   
   <button onclick="goBack()">Volver</button>
 
