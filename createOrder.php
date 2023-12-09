@@ -38,4 +38,26 @@ foreach ($products as $product) {
 }
 
 echo "New record created successfully<br>";
+
 $db->close();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Página</title>
+</head>
+<body>
+  
+  <button onclick="goBack()">Volver</button>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+</body>
+</html>
