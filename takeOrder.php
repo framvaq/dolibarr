@@ -75,9 +75,20 @@ while ($row = $result_sql_id_order->fetch_assoc()) {
 
   foreach ($productos_seleccionados as $tmp) {
     echo $tmp . "<br>";
-
-    $sql_insert_product = "INSERT INTO llx_commandedet (fk_commande,fk_product)
-            values($id_customer,$tmp)";
+    $sql_price_data = "SELECT price FROM llx_product where rowid = $tmp";
+    $result_sql_price_data = $conn->query($sql_price_data);
+    while ($row = $result_sql_price_data->fetch_assoc()) {
+        $product_price = $row["price"];
+        echo $product_price."<br>";
+    }
+    $sql_tva_tx_data = "SELECT tva_tx FROM llx_product where rowid = $tmp";
+    $result_sql_tva_tx_data = $conn->query($sql_tva_tx_data);
+    while ($row = $result_sql_tva_tx_data->fetch_assoc()) {
+        $product_tva_tx = $row["tva_tx"];
+        echo $product_tva_tx."<br>";
+    }
+    $sql_insert_product = "INSERT INTO llx_commandedet (fk_commande,fk_product,price,tva_tx,subprice)
+            values($id_customer,$tmp,$product_price,$product_tva_tx,$product_price)";
     $conn->query($sql_insert_product);
   }
 }
